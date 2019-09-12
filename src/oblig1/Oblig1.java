@@ -8,17 +8,60 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 
+
 public class Oblig1 {
+
+    // En main hvor vi kan teste underveis
+    public static void main(String[] args) {
+
+        // Oppgave 1
+        int[] values = {9, 17, 11, 4, 8};
+        System.out.println(maks(values));
+        //System.out.println(ombyttinger(values));
+        System.out.println(Arrays.toString(values));
+
+
+    }
+
     private Oblig1() {
     }
 
     ///// Oppgave 1 //////////////////////////////////////
     public static int maks(int[] a) {
-        throw new NotImplementedException();
+
+        for (int i= 1; i < a.length; i++){
+
+            if (a[i-1]>a[i]){
+
+                int storst = a[i-1];
+                a[i-1] = a[i];
+                a[i] = storst;
+            }
+
+        }
+
+
+        //throw new NotImplementedException();
+
+        return a[a.length-1];
     }
 
     public static int ombyttinger(int[] a) {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        int antall = 0;
+
+        for (int i= 1; i < a.length; i++){
+
+            if (a[i-1]>a[i]){
+
+                int storst = a[i-1];
+                a[i-1] = a[i];
+                a[i] = storst;
+                antall++;
+            }
+
+        }
+        return antall;
     }
 
     ///// Oppgave 2 //////////////////////////////////////
