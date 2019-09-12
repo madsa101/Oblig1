@@ -23,6 +23,11 @@ public class Oblig1 {
         int[] values2 = {1, 2, 3, 4, 5};
         System.out.println(antallUlikeSortert(values2));
 
+        // Oppgave 4
+        int[] values4 = {1,4,3,7,2};
+        delsortering(values4);
+        System.out.println(Arrays.toString(values4));
+
 
     }
 
@@ -95,7 +100,16 @@ public class Oblig1 {
 
     ///// Oppgave 4 //////////////////////////////////////
     public static void delsortering(int[] a) {
-        throw new NotImplementedException();
+        int tempHolder;
+        for(int i = 1; i<a.length; i++){
+            if(a[i-1]<a[i] && (a[i-1]%2!=0 && a[i-1]%2==0)){}
+            else{
+                tempHolder = a[i - 1];
+                a[i - 1] = a[i];
+                a[i] = tempHolder;
+            }
+        }
+        //throw new NotImplementedException();
     }
 
     ///// Oppgave 5 //////////////////////////////////////
