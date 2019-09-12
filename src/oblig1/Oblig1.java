@@ -16,8 +16,8 @@ public class Oblig1 {
 
         // Oppgave 1
         int[] values = {9, 17, 11, 4, 8};
-        System.out.println(maks(values));
-        //System.out.println(ombyttinger(values));
+        //System.out.println(maks(values));
+        System.out.println(ombyttinger(values));
         System.out.println(Arrays.toString(values));
 
 
