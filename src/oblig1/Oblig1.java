@@ -102,8 +102,7 @@ public class Oblig1 {
     public static void delsortering(int[] a) {
         int tempHolder;
         for(int i = 1; i<a.length; i++){
-            if(a[i-1]<a[i] && (a[i-1]%2!=0 && a[i-1]%2==0)){}
-            else{
+            if((a[i-1]>a[i] || (a[i-1]%2==0 && a[i]%2!=0))){
                 tempHolder = a[i - 1];
                 a[i - 1] = a[i];
                 a[i] = tempHolder;
