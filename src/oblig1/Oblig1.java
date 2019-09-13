@@ -18,12 +18,18 @@ public class Oblig1 {
 
         // Oppgave 1
         int[] values = {9, 17, 11, 4, 8};
-        //System.out.println(maks(values));
+        System.out.println(maks(values));
         System.out.println(ombyttinger(values));
         System.out.println(Arrays.toString(values));
+
         // Oppgave 2
         int[] values2 = {1, 2, 3, 4, 5};
         System.out.println(antallUlikeSortert(values2));
+
+        // Oppgave 3
+        int[] test = {1,1,3,4,5,5,6,7};
+        System.out.println("\nOppgave3:");
+        System.out.println(antallUlikeUsortert(test));
 
         // Oppgave 4
         int[] values4 = {-4, -1, 3, 0, 2, -3, -2, 4, 1};
@@ -45,26 +51,20 @@ public class Oblig1 {
     ///// Oppgave 1 //////////////////////////////////////
     public static int maks(int[] a) throws NoSuchElementException {
 
-
-        // FIXME: 13/09/2019
+        // Skjekker om tabellen er tom
+        if (a.length < 1){
+            throw new NoSuchElementException("Tabellen er tom");
+        }
+        // Kjører gjennom arrayet
         for (int i= 1; i < a.length; i++){
-            if (a.length < 1){
-                throw new NoSuchElementException("Fayl");
 
-            }
+            if (a[i-1]>a[i]){  // Skjekker to og to tall om det første er størst
 
-            if (a[i-1]>a[i]){
-
-                int storst = a[i-1];
+                int storst = a[i-1]; // Hjelpevariabel for å huske a[i-1] som blir overskrevet i følgende linje
                 a[i-1] = a[i];
                 a[i] = storst;
             }
-
         }
-
-
-        //throw new NotImplementedException();
-
         return a[a.length-1];
     }
 
@@ -79,7 +79,7 @@ public class Oblig1 {
                 int storst = a[i-1];
                 a[i-1] = a[i];
                 a[i] = storst;
-                antall++;
+                antall++; // Eneste forskjellen fra forrige metode er denne variabelen som teller antall ombyttinger.
             }
 
         }
@@ -112,12 +112,22 @@ public class Oblig1 {
 
         int antall = 0;
 
-        for (int i = 0; i<100; i++){
+        for (int i = 0; i<a.length; i++){
 
+            boolean unik = true; //
+
+            for (int j = i+1; j < a.length; j++) {
+
+                if (a[i] == a[j]){  // Skjekker om tallet forekommer senere i listen.
+                    unik = false;  // Setter false om tallet forekommer.
+                }
+            }
+
+            if (unik){  // unik vil kun være true for siste gang et tall forekommer.
+                antall++;  // Teller kun tall siste gang det forekommer.
+            }
         }
-
-        //throw new NotImplementedException();
-        return 0;
+        return antall;
     }
 
     ///// Oppgave 4 //////////////////////////////////////
@@ -144,44 +154,15 @@ public class Oblig1 {
     ///// Oppgave 5 //////////////////////////////////////
     public static void rotasjon(char[] a) {
 
-        char[] b = Arrays.copyOf(a,a.length);
+        char[] b = Arrays.copyOf(a,a.length); // dupliserer listen a for å lagre alle orginale verdier og posisjoner.
 
         if (a.length>0) {
             for (int i = 1; i < a.length; i++) {
 
-                b[i] = a[i - 1];
-
+                a[i] = b[i - 1]; // roterer alle verdiene i listen utenom den første
             }
-            b[0] = a[a.length - 1];
+            a[0] = b[b.length - 1]; // roterer den første verdien
         }
-
-        for (int i = 0; i < a.length; i++) {
-            a[i] = b[i];
-
-        }
-
-        /*char lager1 = a[1];
-        char lager2 = a[2];
-        a[1] = a[0];
-
-        for (int i = 2; i < a.length; i++){
-            a[i] = lager1;
-            lager1 = lager2;
-            lager2 = a[i+1];
-        }
-        a[0] =
-        */
-
-
-
-        /*for (int i = 1; i<a.length; i++){
-
-            a[i-1]= a[i];
-        }*/
-
-
-
-        //throw new NotImplementedException();
     }
 
     ///// Oppgave 6 //////////////////////////////////////
