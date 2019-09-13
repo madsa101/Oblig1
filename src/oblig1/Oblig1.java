@@ -19,6 +19,14 @@ public class Oblig1 {
         //System.out.println(maks(values));
         System.out.println(ombyttinger(values));
         System.out.println(Arrays.toString(values));
+        // Oppgave 2
+        int[] values2 = {1, 2, 3, 4, 5};
+        System.out.println(antallUlikeSortert(values2));
+
+        // Oppgave 4
+        int[] values4 = {1,4,3,7,2};
+        delsortering(values4);
+        System.out.println(Arrays.toString(values4));
 
 
     }
@@ -65,8 +73,23 @@ public class Oblig1 {
     }
 
     ///// Oppgave 2 //////////////////////////////////////
-    public static int antallUlikeSortert(int[] a) {
-        throw new NotImplementedException();
+    public static int antallUlikeSortert(int[] a) throws IllegalStateException {
+        int counter;
+        if(a.length==0){counter = 0;}
+        else if (a.length==1){counter = 1;}
+        else {
+            counter = 1;
+            for (int i = 1; i < a.length; i++) {
+                if (a[i] < a[i-1]) {
+                    throw new IllegalStateException("Listen er ikke sortert stigende.");
+                }
+                if (a[i] != a[i - 1]) {
+                    counter += 1;
+                }
+            }
+        }
+        //throw new NotImplementedException();
+        return counter;
     }
 
 
@@ -77,7 +100,15 @@ public class Oblig1 {
 
     ///// Oppgave 4 //////////////////////////////////////
     public static void delsortering(int[] a) {
-        throw new NotImplementedException();
+        int tempHolder;
+        for(int i = 1; i<a.length; i++){
+            if((a[i-1]>a[i] || (a[i-1]%2==0 && a[i]%2!=0))){
+                tempHolder = a[i - 1];
+                a[i - 1] = a[i];
+                a[i] = tempHolder;
+            }
+        }
+        //throw new NotImplementedException();
     }
 
     ///// Oppgave 5 //////////////////////////////////////
