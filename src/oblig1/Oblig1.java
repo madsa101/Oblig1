@@ -26,7 +26,7 @@ public class Oblig1 {
         System.out.println(antallUlikeSortert(values2));
 
         // Oppgave 4
-        int[] values4 = {1,4,3,7,2};
+        int[] values4 = {-4, -1, 3, 0, 2, -3, -2, 4, 1};
         delsortering(values4);
         System.out.println(Arrays.toString(values4));
 
@@ -123,12 +123,20 @@ public class Oblig1 {
     ///// Oppgave 4 //////////////////////////////////////
     public static void delsortering(int[] a) {
         int tempHolder;
-        for(int i = 1; i<a.length; i++){
-            if((a[i-1]>a[i] || (a[i-1]%2==0 && a[i]%2!=0))){
+        boolean jobb = false;
+        for (int i = 1; i < a.length; i++) {
+            if(((a[i - 1] % 2 == 0 || a[i-1]==0) && (a[i] % 2 != 0))){
                 tempHolder = a[i - 1];
                 a[i - 1] = a[i];
                 a[i] = tempHolder;
+                jobb = true;
+            } else if (a[i-1]>a[i] && (Math.abs(a[i-1]%2) == Math.abs(a[i]%2))) {
+                tempHolder = a[i - 1];
+                a[i - 1] = a[i];
+                a[i] = tempHolder;
+                jobb = true;
             }
+            if(i == a.length-1 && jobb){i = 0; jobb = false;}
         }
         //throw new NotImplementedException();
     }
