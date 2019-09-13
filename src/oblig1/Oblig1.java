@@ -2,8 +2,10 @@ package oblig1;
 
 ////// Løsningsforslag Oblig 1 - 2019 ////////////////////////
 
+import com.sun.xml.internal.bind.v2.TODO;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.security.auth.login.AccountExpiredException;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
@@ -28,6 +30,12 @@ public class Oblig1 {
         delsortering(values4);
         System.out.println(Arrays.toString(values4));
 
+        // Oppgave 5
+        //char[] tabell = {'A','B','C','D','E','F','G','H','i','J'};
+        char[] tabell = {};
+        rotasjon(tabell);
+        System.out.println(Arrays.toString(tabell));
+
 
     }
 
@@ -35,9 +43,15 @@ public class Oblig1 {
     }
 
     ///// Oppgave 1 //////////////////////////////////////
-    public static int maks(int[] a) {
+    public static int maks(int[] a) throws NoSuchElementException {
 
+
+        // FIXME: 13/09/2019
         for (int i= 1; i < a.length; i++){
+            if (a.length < 1){
+                throw new NoSuchElementException("Fayl");
+
+            }
 
             if (a[i-1]>a[i]){
 
@@ -95,7 +109,15 @@ public class Oblig1 {
 
     ///// Oppgave 3 //////////////////////////////////////
     public static int antallUlikeUsortert(int[] a) {
-        throw new NotImplementedException();
+
+        int antall = 0;
+
+        for (int i = 0; i<100; i++){
+
+        }
+
+        //throw new NotImplementedException();
+        return 0;
     }
 
     ///// Oppgave 4 //////////////////////////////////////
@@ -113,7 +135,45 @@ public class Oblig1 {
 
     ///// Oppgave 5 //////////////////////////////////////
     public static void rotasjon(char[] a) {
-        throw new NotImplementedException();
+
+        char[] b = Arrays.copyOf(a,a.length);
+
+        if (a.length>0) {
+            for (int i = 1; i < a.length; i++) {
+
+                b[i] = a[i - 1];
+
+            }
+            b[0] = a[a.length - 1];
+        }
+
+        for (int i = 0; i < a.length; i++) {
+            a[i] = b[i];
+
+        }
+
+        /*char lager1 = a[1];
+        char lager2 = a[2];
+        a[1] = a[0];
+
+        for (int i = 2; i < a.length; i++){
+            a[i] = lager1;
+            lager1 = lager2;
+            lager2 = a[i+1];
+        }
+        a[0] =
+        */
+
+
+
+        /*for (int i = 1; i<a.length; i++){
+
+            a[i-1]= a[i];
+        }*/
+
+
+
+        //throw new NotImplementedException();
     }
 
     ///// Oppgave 6 //////////////////////////////////////
