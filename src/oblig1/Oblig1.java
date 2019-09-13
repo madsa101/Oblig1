@@ -3,6 +3,7 @@ package oblig1;
 ////// Løsningsforslag Oblig 1 - 2019 ////////////////////////
 
 import com.sun.xml.internal.bind.v2.TODO;
+import org.junit.platform.commons.util.StringUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.security.auth.login.AccountExpiredException;
@@ -28,7 +29,6 @@ public class Oblig1 {
 
         // Oppgave 3
         int[] test = {1,1,3,4,5,5,6,7};
-        System.out.println("\nOppgave3:");
         System.out.println(antallUlikeUsortert(test));
 
         // Oppgave 4
@@ -42,6 +42,10 @@ public class Oblig1 {
         rotasjon(tabell);
         System.out.println(Arrays.toString(tabell));
 
+        // Oppgave 7
+        String s = "H";
+        String t = "";
+        //System.out.println(flett(s,t));
 
     }
 
@@ -60,7 +64,7 @@ public class Oblig1 {
 
             if (a[i-1]>a[i]){  // Skjekker to og to tall om det første er størst
 
-                int storst = a[i-1]; // Hjelpevariabel for å huske a[i-1] som blir overskrevet i følgende linje
+                int storst = a[i-1]; // Hjelpevariabel for aa huske a[i-1] som blir overskrevet i folgende linje
                 a[i-1] = a[i];
                 a[i] = storst;
             }
@@ -118,12 +122,13 @@ public class Oblig1 {
 
             for (int j = i+1; j < a.length; j++) {
 
-                if (a[i] == a[j]){  // Skjekker om tallet forekommer senere i listen.
-                    unik = false;  // Setter false om tallet forekommer.
+                if (a[i] == a[j]) {     // Skjekker om tallet forekommer senere i listen.
+                    unik = false;       // Setter false om tallet forekommer.
+                    break;              // hopper ut ettersom unodvendig aa fortsette
                 }
             }
 
-            if (unik){  // unik vil kun være true for siste gang et tall forekommer.
+            if (unik){  // unik vil kun vaere true for siste gang et tall forekommer.
                 antall++;  // Teller kun tall siste gang det forekommer.
             }
         }
@@ -154,14 +159,14 @@ public class Oblig1 {
     ///// Oppgave 5 //////////////////////////////////////
     public static void rotasjon(char[] a) {
 
-        char[] b = Arrays.copyOf(a,a.length); // dupliserer listen a for å lagre alle orginale verdier og posisjoner.
+        char[] b = Arrays.copyOf(a,a.length); // dupliserer listen a for aa lagre alle orginale verdier og posisjoner.
 
         if (a.length>0) {
             for (int i = 1; i < a.length; i++) {
 
-                a[i] = b[i - 1]; // roterer alle verdiene i listen utenom den første
+                a[i] = b[i - 1]; // roterer alle verdiene i listen utenom den forste
             }
-            a[0] = b[b.length - 1]; // roterer den første verdien
+            a[0] = b[b.length - 1]; // roterer den forste verdien
         }
     }
 
@@ -173,12 +178,47 @@ public class Oblig1 {
     ///// Oppgave 7 //////////////////////////////////////
     /// 7a)
     public static String flett(String s, String t) {
-        throw new NotImplementedException();
+
+        StringBuilder utskrift = new StringBuilder();
+        int storst = Math.max(s.length(), t.length());      // Finner storste lengden mellom s og t
+
+        for (int i = 0; i < storst ; i++) {                 // for-lokke som tar annen hver bokstav fra s og t helt til storste er ferdig
+            if (s.length()>i){
+                utskrift.append(s.charAt(i));
+            }
+            if (t.length()>i){
+                utskrift.append(t.charAt(i));
+            }
+        }
+
+        return utskrift.toString();
     }
 
     /// 7b)
     public static String flett(String... s) {
-        throw new NotImplementedException();
+
+        int max;
+        int maxL = 0;
+        StringBuilder utskrift = new StringBuilder();
+
+        for (String streng : s){            // Finner lengden paa storste element i s
+            max = streng.length();
+
+            if (max > maxL){
+                maxL = max;
+            }
+        }
+
+        for (int i = 0; i < maxL; i++) {
+
+            for (String streng : s) {       // looper gjennom hvert element i s
+
+                if (streng.length()>i){     // legger til en og en bokstav fra hvert element
+                    utskrift.append(streng.charAt(i));
+                }
+            }
+        }
+        return utskrift.toString();
     }
 
     ///// Oppgave 8 //////////////////////////////////////
@@ -189,8 +229,58 @@ public class Oblig1 {
 
     ///// Oppgave 9 //////////////////////////////////////
     public static int[] tredjeMin(int[] a) {
-        throw new NotImplementedException();
-    }
+        int n = a.length;     // tabellens lengde
+        if (n < 3) throw      // maa ha minst tre verdier
+                new java.util.NoSuchElementException("a.length(" + n + ") < 2!");
+
+        int m = 0;      // m er posisjonen til minste verdi
+        int nm = 1;     // nm er posisjonen til nest minste verdi
+        int nnm = 2;    // nnm er posisjonen til tredje minste verdi
+
+        if ((a[2] < a[1]) && (a[0] < a[2])) { nm = 2; nnm = 1;}
+        else if ((a[2] < a[0]) && (a[1] < a[2])) { m = 1; nm = 2; nnm = 0;}
+        else if ((a[1] < a[0]) && (a[2] < a[1])) { m = 2; nm = 1; nnm = 0;}
+        else if ((a[0] < a[1]) && (a[2] < a[0])) { m = 2; nm = 0; nnm = 1;}
+        else if ((a[0] < a[2]) && (a[1] < a[0])) { m = 1; nm = 0; nnm = 2;}
+
+        int minverdi = a[m];                // minste verdi
+        int nestminverdi = a[nm];           // nest minste verdi
+        int tredjminverdi = a[nnm];         // tredje minste verdi
+
+        for (int i = 3; i < n; i++)
+        {
+            if (a[i] < tredjminverdi) {
+
+                if (a[i] < nestminverdi) {
+
+                    if (a[i] < minverdi) {
+                        nnm = nm;
+                        nm = m;
+                        tredjminverdi = nestminverdi;   // ny tredje minst
+                        nestminverdi = minverdi;        // ny nest minst
+
+                        m = i;
+                        minverdi = a[m];                // ny minst
+                    }
+                    else
+                    {
+                        nnm = nm;
+                        nm = i;
+                        tredjminverdi = nestminverdi;   // ny tredje minst
+                        nestminverdi = a[nm];           // ny nest minst
+                    }
+                }
+                else{
+                    nnm = i;
+                    tredjminverdi = a[nnm];             // ny tredje minst
+                }
+
+            }
+        } // for
+
+        return new int[] {m,nm,nnm};    // n i posisjon 0, nm i posisjon 1, nnm i posisjon 2
+
+    } // tredjeMin
 
     ///// Oppgave 10 //////////////////////////////////////
     public static int bokstavNr(char bokstav) {
