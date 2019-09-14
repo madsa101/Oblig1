@@ -4,6 +4,7 @@ package oblig1;
 
 import com.sun.xml.internal.bind.v2.TODO;
 import org.junit.platform.commons.util.StringUtils;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.security.auth.login.AccountExpiredException;
@@ -18,49 +19,53 @@ public class Oblig1 {
     // En main hvor vi kan teste underveis
     public static void main(String[] args) {
 
-        // Oppgave 1
-        int[] values = {9, 17, 11, 4, 8};
-        System.out.println(maks(values));
-        System.out.println(ombyttinger(values));
-        System.out.println(Arrays.toString(values));
 
-        // Oppgave 2
-        int[] values2 = {1, 2, 3, 4, 5};
-        System.out.println(antallUlikeSortert(values2));
-
-        // Oppgave 3
-        int[] test = {1,1,3,4,5,5,6,7};
-        System.out.println(antallUlikeUsortert(test));
 
         // Oppgave 4
+        System.out.println("\nOppgave4");
         int[] values4 = {-4, -1, 3, 0, 2, -3, -2, 4, 1};
+        System.out.println("{-4, -1, 3, 0, 2, -3, -2, 4, 1}");
         delsortering(values4);
         System.out.println(Arrays.toString(values4));
 
-        // Oppgave 5
-        //char[] tabell = {'A','B','C','D','E','F','G','H','i','J'};
-        char[] tabell = {};
-        rotasjon(tabell);
-        System.out.println(Arrays.toString(tabell));
+        int[] b = {9, 5, 3,2, 1, 7};
+        delsortering(b);
+        System.out.println(Arrays.toString(b));
 
-        //Oppgave 6
-        char[] tabell2 = {'A','B','C','D','E','F','G','H','i','J'};
-        //char[] tabell = {};
-        rotasjon(tabell2, 4);
-        System.out.println(Arrays.toString(tabell2));
-
-        // Oppgave 7
-        String s = "H";
-        String t = "";
-        //System.out.println(flett(s,t));
-
-        // Oppgave 8
-        int [] test3 = {2, 3, 1, 4, 5, 6};
-        indekssortering(test3);
 
         //Oppgave 10
-        System.out.println(Oblig1.inneholdt("ØÅÅØ", "ØØÅØØ"));
+        //System.out.println(Oblig1.inneholdt("ØÅÅØ", "ØØÅØØ"));
 
+    }
+
+    public static void quickSort(int a[], int fra, int til) {
+        if (fra < til) {
+            int partitionIndex = partition(a, fra, til);
+
+            quickSort(a, fra, partitionIndex-1);
+            quickSort(a, partitionIndex+1, til);
+        }
+    }
+
+    private static int partition(int a[], int fra, int til) {
+        int pivot = a[til];
+        int i = (fra-1);
+
+        for (int j = fra; j < til; j++) {
+            if (a[j] <= pivot) {
+                i++;
+
+                int swapTemp = a[i];
+                a[i] = a[j];
+                a[j] = swapTemp;
+            }
+        }
+
+        int swapTemp = a[i+1];
+        a[i+1] = a[til];
+        a[til] = swapTemp;
+
+        return i+1;
     }
 
     private Oblig1() {
@@ -149,17 +154,95 @@ public class Oblig1 {
         return antall;
     }
 
-    ///// Oppgave 4 //////////////////////////////////////
+    ///// Oppgave 4 //////////////////////////////////////  {1,4,2,6,5,8,3,7,9}
+    //                                                      {1,2,3,4,5,6,7,8,9}
+
+
+
+
     public static void delsortering(int[] a) {
+
+        if (a.length == 0) {return;}
+
+        int antallPar = 0;
+        int antallOdd = 0;
+
+        for (int i = 0; i < a.length; i++) {
+
+            if (a[i]%2==0){  antallPar++;}
+            else {antallOdd++;}
+        }
+
+        int indexPar = 0;
+        int indexOdd = 0;
+        int minne;
+        boolean nyPlass = false;
+
+        for (int i = 0; i < a.length; i++) {        // Kjorer gjennom hele arrayet.
+
+            if (a[i]%2!=0) {                        // Dersom tallet er et oddetall.
+
+                minne = a[i];
+                a[i] = a[indexOdd];
+
+                /*for (int j = 0; j <= indexOdd; j++) {     // Ny loop for aa sette inn nye oddetall i sortert orden. (fra begynnelse til tallet vi flytta.)
+
+                    nyPlass = false;
+
+                    if (a[j]%2==0) {break;}
+
+                    if (minne<a[j]){                        // Dersom oddetallet vi fant er mindre enn oddetallet i a[j].
+
+                        nyPlass = true;
+
+                        for (int k = indexOdd; k>j; k--) { // kanskje > eller =
+                            a[k] = a[k-1];
+                            if (k == j+1) {
+                                a[j] = minne;
+                            }
+                        }
+                        break;
+                    }
+                }*/
+                if (!nyPlass) {a[indexOdd] = minne;}
+                indexOdd++;
+            }
+
+        }
+
+        quickSort(a,0,antallOdd-1);
+        quickSort(a,antallOdd,a.length-1);
+
+        /*
+        int minste = a[indexPar];
+        int temp = antallOdd;
+
+
+        for (int i = antallOdd; i < a.length; i++) {
+
+            for (int j = antallOdd; j < a.length-1; j++) {
+
+                if (a[j+1]<a[j]) {
+                    temp=a[j+1];
+                    a[j+1]=a[j];
+                    a[j]=temp;
+                }
+            }
+        }*/
+
+
+
+
+
         //Må ha litt hjelp på denne.
-        int tempHolder;
-        boolean jobb = false;
-        for (int i = 1; i < a.length; i++) {
+        //int tempHolder;
+        //boolean jobb = false;
+        //for (int i = 1; i < a.length; i++) {
 
             /*Går gjennom listen og utforer sorteringsoperasjoner der det trengs. Hvis ingen operasjoner utfores
             under en hel gjennomgang, er jobb false og loopen avsluttes. */
 
-            if(((a[i - 1] % 2 == 0 || a[i-1]==0) && (a[i] % 2 != 0))){
+            /*if(((a[i - 1] % 2 == 0 || a[i-1]==0) && (a[i] % 2 != 0))){
                 tempHolder = a[i - 1];
                 a[i - 1] = a[i];
                 a[i] = tempHolder;
@@ -172,7 +255,7 @@ public class Oblig1 {
             }
             if(i == a.length-1 && jobb){i = 0; jobb = false;}
         }
-        //throw new NotImplementedException();
+        //throw new NotImplementedException(); */
     }
 
     ///// Oppgave 5 //////////////////////////////////////
@@ -357,6 +440,7 @@ public class Oblig1 {
     }
 
     public static boolean inneholdt(String a, String b) {
+        return true;/*
         char gjeldendeBokstav;
         int aAntall;
         int bAntall;
@@ -376,7 +460,7 @@ public class Oblig1 {
             if(bAntall<aAntall){return false;}
 
         }
-        return true;
+        return true;*/
     }
 
 }  // Oblig1
