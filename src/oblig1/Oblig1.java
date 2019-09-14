@@ -152,6 +152,10 @@ public class Oblig1 {
         int tempHolder;
         boolean jobb = false;
         for (int i = 1; i < a.length; i++) {
+
+            /*Går gjennom listen og utforer sorteringsoperasjoner der det trengs. Hvis ingen operasjoner utfores
+            under en hel gjennomgang, er jobb false og loopen avsluttes. */
+
             if(((a[i - 1] % 2 == 0 || a[i-1]==0) && (a[i] % 2 != 0))){
                 tempHolder = a[i - 1];
                 a[i - 1] = a[i];
