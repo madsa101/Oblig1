@@ -7,6 +7,7 @@ import org.junit.platform.commons.util.StringUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.security.auth.login.AccountExpiredException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
@@ -42,10 +43,20 @@ public class Oblig1 {
         rotasjon(tabell);
         System.out.println(Arrays.toString(tabell));
 
+        //Oppgave 6
+        char[] tabell2 = {'A','B','C','D','E','F','G','H','i','J'};
+        //char[] tabell = {};
+        rotasjon(tabell2, 4);
+        System.out.println(Arrays.toString(tabell2));
+
         // Oppgave 7
         String s = "H";
         String t = "";
         //System.out.println(flett(s,t));
+
+        // Oppgave 8
+        int [] test3 = {2, 3, 1, 4, 5, 6};
+        indekssortering(test3);
 
     }
 
@@ -137,6 +148,7 @@ public class Oblig1 {
 
     ///// Oppgave 4 //////////////////////////////////////
     public static void delsortering(int[] a) {
+        //Må ha litt hjelp på denne.
         int tempHolder;
         boolean jobb = false;
         for (int i = 1; i < a.length; i++) {
@@ -172,7 +184,34 @@ public class Oblig1 {
 
     ///// Oppgave 6 //////////////////////////////////////
     public static void rotasjon(char[] a, int k) {
-        throw new NotImplementedException();
+
+        char[] b = Arrays.copyOf(a, a.length); // dupliserer listen a for aa lagre alle orginale verdier og posisjoner.
+        if (a.length > 0) {
+            int roter = 0;
+
+            /*Regner ut hvordan elementene i listen må flyttes for å få riktig
+            rotasjon i de spesialtilfellene der k<0 eller k>a.length*/
+
+            if(k<0 || k>a.length) {
+                for (int i = 0; i <= Math.abs(k); i++) {
+                    if (((k - i) % a.length) == 0) {
+                        roter = i;
+                        break;
+                    }
+                }
+            }else{roter = k;}
+
+            //Flytter elementene i henhold til parameter.
+
+            for (int i = 0; i < a.length; i++) {
+                if (i - roter < 0) {
+                    a[i] = b[(a.length) - (roter - i)];
+                } else {
+                    a[i] = b[i - roter];
+                }
+            }
+            //throw new NotImplementedException();
+        }
     }
 
     ///// Oppgave 7 //////////////////////////////////////
@@ -223,7 +262,30 @@ public class Oblig1 {
 
     ///// Oppgave 8 //////////////////////////////////////
     public static int[] indekssortering(int[] a) {
-        throw new NotImplementedException();
+        int tempHold;
+        int tempHoldIndex;
+        int[] index = new int[a.length];
+        int[] help = Arrays.copyOf(a, a.length);
+
+        //populerer index med nåværende indeksposisjoner
+        for(int i = 0; i<a.length; i++){index[i] = i;}
+
+        //sorterer help, og utfører de samme operasjonene på index
+        for(int i = 1; i<a.length ; i++){
+            if(help[i-1]>help[i]){
+                tempHold = help[i-1];
+                tempHoldIndex = index[i-1];
+
+                help[i-1] = help[i];
+                index[i-1] = index[i];
+
+                help[i] = tempHold;
+                index[i] = tempHoldIndex;
+                i = 0; //Hvis en operasjon utføres, starter loopen paa nytt.
+            }
+        }
+        return index;
+        //throw new NotImplementedException();
     }
 
 
@@ -284,7 +346,7 @@ public class Oblig1 {
 
     ///// Oppgave 10 //////////////////////////////////////
     public static int bokstavNr(char bokstav) {
-        throw new NotImplementedException();
+        return Character.getNumericValue(bokstav);
     }
 
     public static boolean inneholdt(String a, String b) {
