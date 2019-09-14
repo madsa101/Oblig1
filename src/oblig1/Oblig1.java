@@ -58,6 +58,9 @@ public class Oblig1 {
         int [] test3 = {2, 3, 1, 4, 5, 6};
         indekssortering(test3);
 
+        //Oppgave 10
+        System.out.println(Oblig1.inneholdt("ØÅÅØ", "ØØÅØØ"));
+
     }
 
     private Oblig1() {
@@ -354,7 +357,26 @@ public class Oblig1 {
     }
 
     public static boolean inneholdt(String a, String b) {
-        throw new NotImplementedException();
+        char gjeldendeBokstav;
+        int aAntall;
+        int bAntall;
+        if(b.isEmpty() && !a.isEmpty()){return false;}
+        for(int i = 0; i < a.length(); i++){
+            aAntall = 0;
+            bAntall = 0;
+            gjeldendeBokstav = a.charAt(i);
+            for(int j = 0; j<a.length(); j++){
+                if(gjeldendeBokstav == a.charAt(j)){aAntall ++;}
+            }
+            for(int j = 0; j<b.length(); j++){
+                if(gjeldendeBokstav == b.charAt(j)){
+                     bAntall++;
+                }
+            }
+            if(bAntall<aAntall){return false;}
+
+        }
+        return true;
     }
 
 }  // Oblig1
