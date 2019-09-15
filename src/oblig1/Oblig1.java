@@ -391,9 +391,9 @@ public class Oblig1 {
 
         if ((a[2] < a[1]) && (a[0] < a[2])) { nm = 2; nnm = 1;}
         else if ((a[2] < a[0]) && (a[1] < a[2])) { m = 1; nm = 2; nnm = 0;}
-        else if ((a[1] < a[0]) && (a[2] < a[1])) { m = 2; nm = 1; nnm = 0;}
+        else if ((a[1] < a[0]) && (a[2] < a[1])) { m = 2; nnm = 0;}
         else if ((a[0] < a[1]) && (a[2] < a[0])) { m = 2; nm = 0; nnm = 1;}
-        else if ((a[0] < a[2]) && (a[1] < a[0])) { m = 1; nm = 0; nnm = 2;}
+        else if ((a[0] < a[2]) && (a[1] < a[0])) { m = 1; nm = 0;}
 
         int minverdi = a[m];                // minste verdi
         int nestminverdi = a[nm];           // nest minste verdi
@@ -441,27 +441,27 @@ public class Oblig1 {
 
     public static boolean inneholdt(String a, String b) {
 
-        StringBuilder bb = new StringBuilder(b);
+        StringBuilder bb = new StringBuilder(b);    // Flytter b over i en stringbuilder hvor man kan slette objekter.
         int antallA = a.length();
         int antallB = b.length();
         int teller = 0;
         char bokstav;
 
-        for (int i = 0; i < antallA; i++) {
+        for (int i = 0; i < antallA; i++) {         // Gaar gjennom a
 
-            bokstav = a.charAt(i);
+            bokstav = a.charAt(i);                  // Lagrer en bokstav
 
-            for (int j = 0; j < antallB; j++) {
-
-                if (bokstav == bb.charAt(j)){
-                    bb.deleteCharAt(j);
+            for (int j = 0; j < antallB; j++) {     // Gaar gjennom b for aa finne gjeldene bokstav fra a
+                if (bokstav == bb.charAt(j)){       // Hvis gjeldende bokstav fra a er aa finne i b
+                    bb.deleteCharAt(j);             // slettes denne bokstavan fra b slik at den ikke lenger er i veien mtp to av samme bokstav.
                     teller++;
+                    antallB--;
                     break;
                 }
             }
 
         }
-        if (teller == antallA) {return true;}
+        if (teller == antallA) {return true;}       // Hvis teller har samme antall som verdier i a er alle funnet og returnerer folgelig true.
         else {return false;}
 
 
