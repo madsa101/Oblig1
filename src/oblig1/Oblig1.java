@@ -34,7 +34,7 @@ public class Oblig1 {
 
 
         //Oppgave 10
-        //System.out.println(Oblig1.inneholdt("ØÅÅØ", "ØØÅØØ"));
+        System.out.println(Oblig1.inneholdt("ØÅÅØ", "ØØÅØØ"));
 
     }
 
@@ -440,7 +440,32 @@ public class Oblig1 {
     }
 
     public static boolean inneholdt(String a, String b) {
-        return true;/*
+
+        StringBuilder bb = new StringBuilder(b);
+        int antallA = a.length();
+        int antallB = b.length();
+        int teller = 0;
+        char bokstav;
+
+        for (int i = 0; i < antallA; i++) {
+
+            bokstav = a.charAt(i);
+
+            for (int j = 0; j < antallB; j++) {
+
+                if (bokstav == bb.charAt(j)){
+                    bb.deleteCharAt(j);
+                    teller++;
+                    break;
+                }
+            }
+
+        }
+        if (teller == antallA) {return true;}
+        else {return false;}
+
+
+        /*
         char gjeldendeBokstav;
         int aAntall;
         int bAntall;
