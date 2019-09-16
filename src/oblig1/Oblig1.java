@@ -519,10 +519,10 @@ public class Oblig1 {
         char z = 90;
         System.out.print(tellBokstaver(charsA, x)); System.out.print(" |  " + charsA[charsA.length - 1] + "\n"); //teller antall "X" i a    -> 49999
         System.out.print(tellBokstaver(charsA, y)); System.out.print(" |  " + charsA[charsA.length - 1] + "\n"); //teller antall "Y" i a    -> 49999
-        System.out.print(tellBokstaver(charsA, z)); System.out.print(" |  " + charsB[charsA.length - 1] + "\n"); //teller antall "Z" i b    -> 2 ?
+        System.out.print(tellBokstaver(charsA, z)); System.out.print(" |  " + charsA[charsA.length - 1] + "\n"); //teller antall "Z" i a    -> 2 ?
 
-        System.out.print(tellBokstaver(charsB, y)); System.out.print(" |  " + charsA[charsA.length - 1] + "\n"); //teller antall "Y" i a -> 49999
-        System.out.print(tellBokstaver(charsB, y)); System.out.print(" |  " + charsB[charsA.length - 1] + "\n"); //teller antall "X" i b -> 50000
+        System.out.print(tellBokstaver(charsB, x)); System.out.print(" |  " + charsB[charsA.length - 1] + "\n"); //teller antall "X" i b -> 50000
+        System.out.print(tellBokstaver(charsB, y)); System.out.print(" |  " + charsB[charsA.length - 1] + "\n"); //teller antall "Y" i b -> 50000
 
         //testen kaller "Oblig1.inneholdt(s, t)" der s inneholder 49999 av hver mens t inneholder 50000
 
