@@ -495,6 +495,7 @@ public class Oblig1 {
         }  //Spesialtilfeller for tomme arrays
 
         for (char c : charsA) {
+            isCounted = false;
 
             for (int i = 0; i < countedChars.length; i++) {
                 if (c == countedChars[i]) {
