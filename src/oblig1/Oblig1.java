@@ -8,10 +8,13 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.security.auth.login.AccountExpiredException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
-
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 public class Oblig1 {
@@ -34,7 +37,8 @@ public class Oblig1 {
 
 
         //Oppgave 10
-        System.out.println(Oblig1.inneholdt("ØÅÅØ", "ØØÅØØ"));
+        System.out.println(Oblig1.inneholdt("ABBA", "ABBA"));
+
     }
 
     public static void quickSort(int a[], int fra, int til) {
@@ -355,6 +359,7 @@ public class Oblig1 {
         int tempHoldIndex;
         int[] index = new int[a.length];
         int[] help = Arrays.copyOf(a, a.length);
+        boolean jobb = false;
 
         //populerer index med nåværende indeksposisjoner
         for(int i = 0; i<a.length; i++){index[i] = i;}
@@ -370,8 +375,9 @@ public class Oblig1 {
 
                 help[i] = tempHold;
                 index[i] = tempHoldIndex;
-                i = 0; //Hvis en operasjon utføres, starter loopen paa nytt.
+                jobb = true;
             }
+            if(jobb){i = 0; jobb=false;} //hvis en jobb utføres starter loopen paa nytt. Ellers er vi ferdige.
         }
         return index;
         //throw new NotImplementedException();
@@ -435,11 +441,99 @@ public class Oblig1 {
 
     ///// Oppgave 10 //////////////////////////////////////
     public static int bokstavNr(char bokstav) {
-        return Character.getNumericValue(bokstav);
+        return (int) bokstav;
+    }
+
+    public static int tellBokstaver(char[] chars, char c){
+        //Metode som teller antall bokstaver av type c som finnes i listen "chars"
+
+        int antall = 0;
+        if(chars.length == 0){return 0;}
+
+        for(int i = 0; i<chars.length; i++){
+            if(chars[i] == c){
+                antall ++;
+            }
+        }
+        return antall;
     }
 
     public static boolean inneholdt(String a, String b) {
+        String countedString;
+        int counted = 0;
+        char[] countedChars = new char[30];
+        char[] charsA = a.toCharArray();
+        char[] charsB = b.toCharArray();
 
+        if(a.isEmpty()){return true;}
+        else if(!a.isEmpty() && b.isEmpty()){return false;}  //Spesialtilfeller for tomme arrays
+
+        for (char c: charsA) {
+            countedString = Arrays.toString(countedChars);
+            if (countedString.contains(new String(new char[]{c}))) {
+                //Skjekker om denne bokstaven allerede er telt, gaar bare videre til neste bokstav hvis det er tilfelle.
+            } else {
+                //Sammenlikner antall bokstaver av en gitt type i hver liste, har "charsA" flere av en gitt bokstav enn "charsB", returneres false.
+                if (tellBokstaver(charsA, c) > tellBokstaver(charsB, c)) {
+                    return false;
+                } else{
+                    //Hvis det finnes like mange eller fler av den gitte bokstaven i "charsB", fortsetter algoritmen.
+                    countedChars[counted] = c;
+                    counted ++;
+                }
+            }
+        }
+        //Hvis algoritmen ikke har returnert false enda, er bokstavene i a, ogsaa inneholdt i b.
+        return true;
+
+        /* MADS TULL
+        //spesialtilfeller
+        if(a.isEmpty()){return true;}
+        else if(!a.isEmpty() && b.isEmpty()){return false;}
+        int n = 0;
+        int bStart = 0;
+        int[] aInts = stringToInts(a);
+        int[] bInts = stringToInts(b);
+        ArrayList<int[]> A = new ArrayList<>();
+        ArrayList<int[]> B = new ArrayList<>();
+        boolean hasOneLetter = false;
+
+        quickSort(aInts, 0, aInts.length - 1);
+        quickSort(bInts, 0, bInts.length - 1);
+
+        if(bInts.length < aInts.length){return false;}
+
+        A.add(tellBokstaver(aInts, 0));
+        B.add(tellBokstaver(bInts, 0));
+        for(int i = 1; i<aInts.length; i++){
+            if(aInts[i-1] != aInts[i]){
+                A.add(tellBokstaver(aInts, i));
+            }
+        }
+        for(int i = 1; i<bInts.length; i++){
+            if(bInts[i-1] != bInts[i]){
+                B.add(tellBokstaver(bInts, i));
+            }
+        }
+
+        /*for(int i = 0; i<A.size(); i++){
+            for(int j = 0; j<B.size(); j++){
+                if(A.get(i)[0]==B.get(j)[0]){
+                    hasOneLetter = true;
+                    if(A.get(i)[1] > B.get(j)[1]){return false;}
+                }
+            }
+            if(!hasOneLetter){return false;}
+        }
+        return true;
+
+        ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+        */
+
+
+
+
+        /*
         StringBuilder bb = new StringBuilder(b);    // Flytter b over i en stringbuilder hvor man kan slette objekter.
         int antallA = a.length();
         int antallB = b.length();
@@ -452,7 +546,7 @@ public class Oblig1 {
 
             for (int j = 0; j < antallB; j++) {     // Gaar gjennom b for aa finne gjeldene bokstav fra a
                 if (bokstav == bb.charAt(j)){       // Hvis gjeldende bokstav fra a er aa finne i b
-                    bb.deleteCharAt(j);             // sletter denne bokstavan fra b slik at den ikke lenger er i veien mtp to av samme bokstav.
+                    bb.deleteCharAt(j);             // slettes denne bokstavan fra b slik at den ikke lenger er i veien mtp to av samme bokstav.
                     teller++;
                     antallB--;
                     break;
@@ -463,6 +557,7 @@ public class Oblig1 {
         if (teller == antallA) {return true;}       // Hvis teller har samme antall som verdier i a er alle funnet og returnerer folgelig true.
         else {return false;}
 
+        */
 
         /*
         char gjeldendeBokstav;
