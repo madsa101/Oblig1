@@ -445,6 +445,8 @@ public class Oblig1 {
     }
 
     public static int tellBokstaver(char[] chars, char c){
+        //Metode som teller antall bokstaver av type c som finnes i listen "chars"
+
         int antall = 0;
         if(chars.length == 0){return 0;}
 
@@ -464,21 +466,24 @@ public class Oblig1 {
         char[] charsB = b.toCharArray();
 
         if(a.isEmpty()){return true;}
-        else if(!a.isEmpty() && b.isEmpty()){return false;}
+        else if(!a.isEmpty() && b.isEmpty()){return false;}  //Spesialtilfeller for tomme arrays
 
         for (char c: charsA) {
             countedString = Arrays.toString(countedChars);
             if (countedString.contains(new String(new char[]{c}))) {
-                //gaa videre
+                //Skjekker om denne bokstaven allerede er telt, gaar bare videre til neste bokstav hvis det er tilfelle.
             } else {
+                //Sammenlikner antall bokstaver av en gitt type i hver liste, har "charsA" flere av en gitt bokstav enn "charsB", returneres false.
                 if (tellBokstaver(charsA, c) > tellBokstaver(charsB, c)) {
                     return false;
                 } else{
+                    //Hvis det finnes like mange eller fler av den gitte bokstaven i "charsB", fortsetter algoritmen.
                     countedChars[counted] = c;
                     counted ++;
                 }
             }
         }
+        //Hvis algoritmen ikke har returnert false enda, er bokstavene i a, ogsaa inneholdt i b.
         return true;
 
         /* MADS TULL
