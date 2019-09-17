@@ -10,25 +10,17 @@ package oblig1;
 //--------------------------------------////////////////////////
 
 
-import com.sun.xml.internal.bind.v2.TODO;
-import org.junit.platform.commons.util.StringUtils;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import javax.security.auth.login.AccountExpiredException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
 
 
 public class Oblig1 {
 
 
-    public static void quickSort(int a[], int fra, int til) {
+    private static void quickSort(int[] a, int fra, int til) {
         if (fra < til) {
             int partitionIndex = partition(a, fra, til);
 
@@ -37,7 +29,7 @@ public class Oblig1 {
         }
     }
 
-    private static int partition(int a[], int fra, int til) {
+    private static int partition(int[] a, int fra, int til) {
         int pivot = a[til];
         int i = (fra - 1);
 
@@ -168,7 +160,6 @@ public class Oblig1 {
             }
         }
 
-        int indexPar = 0;
         int indexOdd = 0;
         int minne;
         boolean nyPlass = false;
@@ -389,11 +380,8 @@ public class Oblig1 {
     }
 
     ///// Oppgave 10 //////////////////////////////////////
-    public static int bokstavNr(char bokstav) {
-        return (int) bokstav;
-    }
 
-    public static int tellBokstaver(char[] chars, char c) {
+    private static int tellBokstaver(char[] chars, char c) {
         //Metode som teller antall bokstaver av type c som finnes i listen "chars"
 
         int antall = 0;
@@ -401,8 +389,8 @@ public class Oblig1 {
             return 0;
         }
 
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == c) {
+        for (char aChar : chars) {
+            if (aChar == c) {
                 antall++;
             }
         }
@@ -426,14 +414,14 @@ public class Oblig1 {
         for (char c : charsA) {
             isCounted = false;
 
-            for (int i = 0; i < countedChars.length; i++) {
-                if (c == countedChars[i]) {
+            for (char countedChar : countedChars) {
+                if (c == countedChar) {
                     isCounted = true;
                 }
             }
-                if (isCounted) {
+                if (!isCounted) {
                     //Skjekker om denne bokstaven allerede er telt, gaar videre til neste bokstav hvis det er tilfelle.
-                } else {
+
                     //Sammenlikner antall bokstaver av en gitt type i hver liste, har "charsA" flere av en gitt bokstav enn "charsB", returneres false.
                     if (tellBokstaver(charsA, c) > tellBokstaver(charsB, c)) {
                         return false;
