@@ -6,7 +6,7 @@ package oblig1;
 //      NAVN                STUDENTNR   ////////////////////////
 //--------------------------------------////////////////////////
 //      Mads Lundbye        s331353     ////////////////////////
-//      Jørgen Lundegård    s33****     ////////////////////////
+//      Jørgen Lundegård    s331385     ////////////////////////
 //--------------------------------------////////////////////////
 
 
@@ -132,10 +132,10 @@ public class Oblig1 {
             }
 
             if (unik) {  // unik vil kun vaere true for siste gang et tall forekommer.
-                antall++;  // Teller kun tall siste gang det forekommer.
+                antall++;  // Teller kun tall siste gang det forekommer, slik at man ikke teller samme tall to ganger.
             }
         }
-        return antall;
+        return antall; // Returnerer summen av alle unike tall
     }
 
     ///// Oppgave 4 //////////////////////////////////////  {1,4,2,6,5,8,3,7,9}
@@ -151,9 +151,9 @@ public class Oblig1 {
         int antallPar = 0;
         int antallOdd = 0;
 
-        for (int i = 0; i < a.length; i++) {
+        for (int value : a) {
 
-            if (a[i] % 2 == 0) {
+            if (value % 2 == 0) {
                 antallPar++;
             } else {
                 antallOdd++;
@@ -171,10 +171,8 @@ public class Oblig1 {
                 minne = a[i];
                 a[i] = a[indexOdd];
 
+                a[indexOdd] = minne;
 
-                if (!nyPlass) {
-                    a[indexOdd] = minne;
-                }
                 indexOdd++;
             }
 
@@ -191,10 +189,8 @@ public class Oblig1 {
         char[] b = Arrays.copyOf(a, a.length); // dupliserer listen a for aa lagre alle orginale verdier og posisjoner.
 
         if (a.length > 0) {
-            for (int i = 1; i < a.length; i++) {
-
-                a[i] = b[i - 1]; // roterer alle verdiene i listen utenom den forste
-            }
+            // roterer alle verdiene i listen utenom den forste
+            System.arraycopy(b, 0, a, 1, a.length - 1);
             a[0] = b[b.length - 1]; // roterer den forste verdien
         }
     }
@@ -407,7 +403,7 @@ public class Oblig1 {
         //Spesialtilfeller for tomme arrays:
         if (a.isEmpty()) {
             return true;
-        } else if (!a.isEmpty() && b.isEmpty()) {
+        } else if (b.isEmpty()) {
             return false;
         }
 
@@ -417,6 +413,7 @@ public class Oblig1 {
             for (char countedChar : countedChars) {
                 if (c == countedChar) {
                     isCounted = true;
+                    break;
                 }
             }
                 if (!isCounted) {
